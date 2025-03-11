@@ -1,0 +1,32 @@
+name: Java CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Change this to your branch name
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'  # Change to your required version
+
+      - name: Build the project
+        run: mvn clean install  # If using Gradle, use `./gradlew build`
+
+      - name: Run tests
+        run: mvn test  # Runs unit tests
+
+      - name: Deploy (Optional)
+        run: echo "Deploying application..."
